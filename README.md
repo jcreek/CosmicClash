@@ -1,4 +1,4 @@
-# CosmicClash
+# Cosmic Clash
 
 In "Cosmic Clash," the heart-pounding action takes place in variable gravity environments where vehicles hover just above the ground. In this thrilling spiritual successor to Rocket League, players engage in high-speed, gravity-defying matches set in the far reaches of space. Each pitch is situated in a unique environment or planet, offering breathtaking vistas and challenging terrain. But instead of cars, competitors pilot rocket-powered ships, each equipped with its own set of customisable features and special abilities.
 

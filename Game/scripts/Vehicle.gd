@@ -3,6 +3,7 @@ extends RigidBody3D
 var speed = 10.0  # Adjust the speed as necessary
 
 func _integrate_forces(state):
+	# TODO - change these so they are relative to the vehicle, not the world
 	var input_vector = Vector3.ZERO
 	if Input.is_action_pressed("move_forward"):
 		input_vector.z -= 1

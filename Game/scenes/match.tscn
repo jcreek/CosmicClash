@@ -1,41 +1,48 @@
 [gd_scene load_steps=9 format=3 uid="uid://djlfte5nx8sel"]
 
-[ext_resource type="Script" path="res://scripts/Vehicle.gd" id="1_xcj6u"]
+[ext_resource type="PackedScene" uid="uid://dnra1buk328d" path="res://objects/vehicle.tscn" id="2_2d4ji"]
 [ext_resource type="Script" path="res://scripts/MatchCamera3D.gd" id="2_n3g6s"]
+[ext_resource type="PackedScene" uid="uid://cofdcxo5170rs" path="res://objects/goal.tscn" id="3_xk008"]
+[ext_resource type="Script" path="res://scripts/goal2.gd" id="4_ukkeh"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_xf0b8"]
-size = Vector3(1, 0.5, 0.5)
+[sub_resource type="BoxMesh" id="BoxMesh_xotuo"]
+size = Vector3(10, 0.5, 10)
 
-[sub_resource type="BoxMesh" id="BoxMesh_ox3jn"]
-size = Vector3(1, 0.5, 0.5)
+[sub_resource type="BoxShape3D" id="BoxShape3D_133xi"]
+size = Vector3(10, 0.5, 10)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_c5p07"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_uxjj0"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_gyxf6"]
-size = Vector3(50, 0.1, 50)
-
-[sub_resource type="BoxMesh" id="BoxMesh_vk12m"]
-size = Vector3(50, 0.1, 50)
-
 [node name="MatchNode3D" type="Node3D"]
 
-[node name="Vehicle" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.97288, 1.24949, 0.0115612)
-mass = 10.0
-gravity_scale = 10.0
-script = ExtResource("1_xcj6u")
+[node name="MatchCamera3D" type="Camera3D" parent="." node_paths=PackedStringArray("vehicle", "ball")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1.33585, 3.3972)
+current = true
+fov = 114.877
+script = ExtResource("2_n3g6s")
+vehicle = NodePath("../Players/Player1")
+ball = NodePath("../Ball")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Vehicle"]
-shape = SubResource("BoxShape3D_xf0b8")
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.908048, -0.417905, 0.0283578, 0.372456, 0.836559, 0.401802, -0.191638, -0.354294, 0.915287, 0, 3.7388, 0.115907)
+shadow_enabled = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Vehicle"]
-mesh = SubResource("BoxMesh_ox3jn")
+[node name="Floor" type="StaticBody3D" parent="."]
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("BoxMesh_xotuo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("BoxShape3D_133xi")
 
 [node name="Ball" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.00382, 1.26061, 0)
-mass = 10.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2, 2.08165e-12)
+mass = 100.0
+inertia = Vector3(100, 100, 100)
+metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ball"]
 shape = SubResource("SphereShape3D_c5p07")
@@ -43,18 +50,13 @@ shape = SubResource("SphereShape3D_c5p07")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ball"]
 mesh = SubResource("SphereMesh_uxjj0")
 
-[node name="MatchCamera3D" type="Camera3D" parent="." node_paths=PackedStringArray("vehicle", "ball")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
-current = true
-fov = 114.877
-script = ExtResource("2_n3g6s")
-vehicle = NodePath("../Vehicle")
-ball = NodePath("../Ball")
+[node name="Players" type="Node3D" parent="."]
 
-[node name="Floor" type="StaticBody3D" parent="."]
+[node name="Player1" parent="Players" instance=ExtResource("2_2d4ji")]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
-shape = SubResource("BoxShape3D_gyxf6")
+[node name="Goals" type="Node3D" parent="."]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
-mesh = SubResource("BoxMesh_vk12m")
+[node name="Goal2" parent="Goals" node_paths=PackedStringArray("ball") instance=ExtResource("3_xk008")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1, -5)
+script = ExtResource("4_ukkeh")
+ball = NodePath("../../Ball")

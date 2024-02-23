@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://djlfte5nx8sel"]
+[gd_scene load_steps=13 format=3 uid="uid://djlfte5nx8sel"]
 
 [ext_resource type="PackedScene" uid="uid://dnra1buk328d" path="res://objects/vehicle.tscn" id="2_2d4ji"]
 [ext_resource type="ArrayMesh" uid="uid://ucw1lyo43yi4" path="res://assets/models/gold_ball.res" id="2_4bpxj"]
@@ -6,13 +6,27 @@
 [ext_resource type="PackedScene" uid="uid://cofdcxo5170rs" path="res://objects/goal.tscn" id="3_xk008"]
 [ext_resource type="Script" path="res://scripts/goal2.gd" id="4_ukkeh"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xmumy"]
+albedo_color = Color(0.0196078, 0.34902, 0.156863, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_xotuo"]
+material = SubResource("StandardMaterial3D_xmumy")
 size = Vector3(10, 0.5, 10)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_133xi"]
 size = Vector3(10, 0.5, 10)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_c5p07"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_t0i0j"]
+sky_top_color = Color(0.266667, 0.419608, 1, 1)
+
+[sub_resource type="Sky" id="Sky_0r58b"]
+sky_material = SubResource("ProceduralSkyMaterial_t0i0j")
+
+[sub_resource type="Environment" id="Environment_ycxte"]
+background_mode = 2
+sky = SubResource("Sky_0r58b")
 
 [node name="MatchNode3D" type="Node3D"]
 
@@ -61,3 +75,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1, -5)
 script = ExtResource("4_ukkeh")
 ball = NodePath("../../Ball")
 player1 = NodePath("../../Players/Player1")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ycxte")

@@ -56,7 +56,8 @@ mesh = SubResource("SphereMesh_uxjj0")
 
 [node name="Goals" type="Node3D" parent="."]
 
-[node name="Goal2" parent="Goals" node_paths=PackedStringArray("ball") instance=ExtResource("3_xk008")]
+[node name="Goal2" parent="Goals" node_paths=PackedStringArray("ball", "player1") instance=ExtResource("3_xk008")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1, -5)
 script = ExtResource("4_ukkeh")
 ball = NodePath("../../Ball")
+player1 = NodePath("../../Players/Player1")

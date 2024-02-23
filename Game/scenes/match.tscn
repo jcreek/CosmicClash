@@ -61,7 +61,7 @@ metadata/_edit_group_ = true
 shape = SubResource("SphereShape3D_c5p07")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ball"]
-transform = Transform3D(0.59, 0, 0, 0, 0.59, 0, 0, 0, 0.59, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.08165e-12, 2.08165e-12, 2.08165e-12)
 mesh = ExtResource("2_4bpxj")
 
 [node name="Players" type="Node3D" parent="."]

@@ -1,6 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://djlfte5nx8sel"]
 
 [ext_resource type="PackedScene" uid="uid://dnra1buk328d" path="res://objects/vehicle.tscn" id="2_2d4ji"]
+[ext_resource type="ArrayMesh" uid="uid://ucw1lyo43yi4" path="res://assets/models/gold_ball.res" id="2_4bpxj"]
 [ext_resource type="Script" path="res://scripts/MatchCamera3D.gd" id="2_n3g6s"]
 [ext_resource type="PackedScene" uid="uid://cofdcxo5170rs" path="res://objects/goal.tscn" id="3_xk008"]
 [ext_resource type="Script" path="res://scripts/goal2.gd" id="4_ukkeh"]
@@ -12,8 +13,6 @@ size = Vector3(10, 0.5, 10)
 size = Vector3(10, 0.5, 10)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_c5p07"]
-
-[sub_resource type="SphereMesh" id="SphereMesh_uxjj0"]
 
 [node name="MatchNode3D" type="Node3D"]
 
@@ -48,7 +47,8 @@ metadata/_edit_group_ = true
 shape = SubResource("SphereShape3D_c5p07")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ball"]
-mesh = SubResource("SphereMesh_uxjj0")
+transform = Transform3D(0.59, 0, 0, 0, 0.59, 0, 0, 0, 0.59, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+mesh = ExtResource("2_4bpxj")
 
 [node name="Players" type="Node3D" parent="."]
 

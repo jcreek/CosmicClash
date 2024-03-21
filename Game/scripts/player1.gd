@@ -9,6 +9,7 @@ func get_input_vector() -> Vector3:
 		var camera_transform = camera.global_transform
 		var forward_direction = -camera_transform.basis.z
 		var right_direction = camera_transform.basis.x
+		var y_movement = input_vector.y
 
 		if Input.is_action_pressed("move_forward"):
 			input_vector += forward_direction
@@ -18,6 +19,13 @@ func get_input_vector() -> Vector3:
 			input_vector -= right_direction
 		if Input.is_action_pressed("move_right"):
 			input_vector += right_direction
+		
+		# Zero out the Y component to restrict movement to the XZ plane
+		input_vector.y = 0
+		
+		# Add back the preserved Y movement
+		input_vector.y = y_movement
+		
 		if Input.is_action_pressed("move_up"):
 			input_vector.y += 1
 		if Input.is_action_pressed("move_down"):

@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://djlfte5nx8sel"]
+[gd_scene load_steps=14 format=3 uid="uid://djlfte5nx8sel"]
 
 [ext_resource type="PackedScene" uid="uid://dnra1buk328d" path="res://objects/vehicle.tscn" id="2_2d4ji"]
 [ext_resource type="ArrayMesh" uid="uid://ucw1lyo43yi4" path="res://assets/models/gold_ball.res" id="2_4bpxj"]
 [ext_resource type="Script" path="res://scripts/MatchCamera3D.gd" id="2_n3g6s"]
 [ext_resource type="PackedScene" uid="uid://cofdcxo5170rs" path="res://objects/goal.tscn" id="3_xk008"]
-[ext_resource type="Script" path="res://scripts/goal2.gd" id="4_ukkeh"]
+[ext_resource type="Script" path="res://scripts/player1.gd" id="4_keuru"]
+[ext_resource type="Script" path="res://scripts/player2.gd" id="4_vutck"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xmumy"]
 albedo_color = Color(0.0196078, 0.34902, 0.156863, 1)
@@ -35,7 +36,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1.33585, 3.3972)
 current = true
 fov = 114.877
 script = ExtResource("2_n3g6s")
-vehicle = NodePath("../Players/Player1")
+vehicle = NodePath("../Players/GridContainer/SubViewportContainer/SubViewport/Player1")
 ball = NodePath("../Ball")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -66,15 +67,46 @@ mesh = ExtResource("2_4bpxj")
 
 [node name="Players" type="Node3D" parent="."]
 
-[node name="Player1" parent="Players" instance=ExtResource("2_2d4ji")]
+[node name="GridContainer" type="GridContainer" parent="Players"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Players/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SubViewport" type="SubViewport" parent="Players/GridContainer/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1080, 960)
+render_target_update_mode = 4
+
+[node name="Player1" parent="Players/GridContainer/SubViewportContainer/SubViewport" instance=ExtResource("2_2d4ji")]
+script = ExtResource("4_keuru")
+
+[node name="SubViewportContainer2" type="SubViewportContainer" parent="Players/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SubViewport2" type="SubViewport" parent="Players/GridContainer/SubViewportContainer2"]
+handle_input_locally = false
+size = Vector2i(1080, 960)
+render_target_update_mode = 4
+
+[node name="Player2" parent="Players/GridContainer/SubViewportContainer2/SubViewport2" instance=ExtResource("2_2d4ji")]
+script = ExtResource("4_vutck")
 
 [node name="Goals" type="Node3D" parent="."]
 
 [node name="Goal2" parent="Goals" node_paths=PackedStringArray("ball", "player1") instance=ExtResource("3_xk008")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1, -5)
-script = ExtResource("4_ukkeh")
 ball = NodePath("../../Ball")
-player1 = NodePath("../../Players/Player1")
+player1 = NodePath("../../Players/GridContainer/SubViewportContainer/SubViewport/Player1")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ycxte")

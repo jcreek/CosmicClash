@@ -1,26 +1,24 @@
 extends RigidBody3D
 
-var speed = 10.0  # Adjust the speed as necessary
+# Speed variable can be adjusted by subclasses
+var speed = 10.0
 
 func _integrate_forces(state):
-	# TODO - change these so they are relative to the vehicle, not the world
-	var input_vector = Vector3.ZERO
-	if Input.is_action_pressed("move_forward"):
-		input_vector.z -= 1
-	if Input.is_action_pressed("move_backward"):
-		input_vector.z += 1
-	if Input.is_action_pressed("move_left"):
-		input_vector.x -= 1
-	if Input.is_action_pressed("move_right"):
-		input_vector.x += 1
-	if Input.is_action_pressed("move_up"):
-		input_vector.y += 1
-	if Input.is_action_pressed("move_down"):
-		input_vector.y -= 1
+	# input_vector represents the movement input relative to the vehicle
+	var input_vector = get_input_vector()
 
+	# Scale the input_vector by speed
 	input_vector = input_vector.normalized() * speed
+	
+	# Set the linear velocity based on the input
 	state.linear_velocity = input_vector
 
+# Get the input vector from subclasses
+func get_input_vector() -> Vector3:
+	var input_vector = Vector3.ZERO
+
+	# Subclasses will implement this function to provide their input mappings
+	return input_vector
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
